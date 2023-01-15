@@ -1,0 +1,201 @@
+*packdl.txt*	A minimum Vim/Neovim plugin downloader/installer
+*packdl.vim*
+
+Author: Kenichi Takizawa
+Licence: MIT licence
+
+==============================================================================
+CONTENTS						*packdl.vim-contents*
+
+Introduction					|packdl.vim-introduction|
+Dependencies					|packdl.vim-depends|
+Set up						|packdl.vim-setup|
+Usage						|packdl.vim-usage|
+Commands					|packdl.vim-commands|
+Options						|packdl.vim-options|
+Update plugins					|packdl.vim-update|
+Remove plugins					|packdl.vim-remove|
+Changelog					|packdl.vim-changelog|
+
+==============================================================================
+INTROUDUCTION					*packdl.vim-introduction*
+
+packdl.vim is a minimum Vim/Neovim plugin downloader/installer. It is focused
+on only plugin download and install. This plugin is very small and simple.
+So you should update or remove plugins manually, but it is able to avoid
+package manager conflicts or some database broken. Also, you can learn and
+modify code easily.
+
+------------------------------------------------------------------------------
+Dependencies						*packdl.vim-depends*
+
+packdl.vim is only depends on git shell command. It should be install
+git system like below.
+
+- `Debian GNU/Linux / Ubuntu`
+>
+	$#If sudo available
+	$sudo apt install git
+	$#If su available
+	#apt install git
+<
+
+- `Fedora`
+>
+	$#If sudo available
+	$sudo dnf install git
+	$#If su available
+	#apt install git
+<
+
+- `Windows`
+  Download from official page: https://git-scm.com/downloads
+  Or using chocolatey
+>
+	choco install git
+<
+
+------------------------------------------------------------------------------
+SET UP						*packdl.vim-setup*
+
+First, download this plugin in vim package directory.
+*nix:
+>
+	$#Vim:
+	$cd $HOME/.vim/pack/argon/start/packdl.vim/
+	$#Neovim:
+	$cd $HOME/.local/share/nvim/site/pack/argon/start/packdl.vim/
+	$git clone https://github.com/argon40kt/packdl.vim
+<
+
+Windows:
+>
+	rem Vim:
+	cd C:\Users\USERNAME\vimfiles\pack\argon\start\packdl.vim\
+	rem Neovim:
+	cd C:\Users\USERNAME\AppData\Local\nvim-data\site\pack\argon\start\packdl.vim\
+	git clone https://github.com/argon40kt/packdl.vim
+<
+
+You can set the git repositories of Vim plugin for download source in 
+|g:gitrepos|. |g:gitrepos| should be list type and the repositories should be
+full URL path. 
+
+
+------------------------------------------------------------------------------
+USAGE						*packdl.vim-usage*
+
+1. Download this plugin in Vim/Neovim package directyory(See |packdl.vim-setup)
+
+2. Set up |g:gitrepos| and |g:gitcmd|
+   (See details in Set up section |packdl.vim-setup|)
+3. Execute |:Packinstall| then all plugins described in g:gitrepos will be
+   installed.
+4. If you want to update or remove plugins, see |packdl.vim-update| or
+   |packdl.vim-remove|
+
+------------------------------------------------------------------------------
+COMMANDS					*packdl.vim-commands*
+
+						*:Packinstall*
+:Packinstall		Install all plugins defined by |g:gitrepos|.
+
+------------------------------------------------------------------------------
+OPTIONS						*packdl.vim-options*
+
+g:gitcmd					*g:gitcmd*
+	Type: string
+	This value defines git commands path to call.
+	Example:
+>
+	"For example, use git command from WSL on Windows platform
+	if has('win32')
+	    g:gitcmd='wsl git'
+	else
+	"It is possible to assign the full path of git command
+	    let g:gitcmd='/usr/bin/git'
+	endif
+<
+
+g:gitrepos					*g:gitrepos*
+	Type: list
+	This value defines download source git repository of plugins.
+	It is possible to define multiple source repositories.
+	Each element should be string type and full URL path of repositories.
+	Example:
+>
+	"Define plugin git repositories
+	let g:gitrepos=['https://github.com/dense-analysis/ale.git',
+		\	'https://github.com/lervag/vimtex.git',
+		\	'https://github.com/puremourning/vimspector.git',
+		\	'https://github.com/previm/previm.git']
+<
+
+------------------------------------------------------------------------------
+UPDATE PLUGINS					*packdl.vim-update*
+
+packdl.vim does not have update function. but it is possible to update plugins
+manually by directly use git command.
+Bellow is an example.
+
+*nix:
+>
+	$#Vim:
+	$cd $HOME/.vim/pack/ACCOUNT_NAME/start/PLUGINS_NAME/
+	$#Neovim:
+	$cd $HOME/.local/share/nvim/site/pack/ACCOUNT_NAME/start/PLUGINS_NAME/
+	$git pull
+<
+
+Windows:
+>
+  rem Vim:
+  cd C:\Users\USERNAME\vimfiles\pack\ACCOUNT_NAME\start\PLUGINS_NAME\
+  rem Neovim:
+  cd C:\Users\USERNAME\AppData\Local\nvim-data\site\pack\ACCOUNT_NAME\start\PLUGINS_NAME\
+  git pull
+<
+
+After update plugins, you should update documents helptags.
+First, you should cd to plugin directory.
+
+*nix:
+>
+	$#Vim:
+	$cd $HOME/.vim/pack/ACCOUNT_NAME/start/PLUGINS_NAME/
+	$vim
+	$#Neovim:
+	$cd $HOME/.local/share/nvim/site/pack/ACCOUNT_NAME/start/PLUGINS_NAME/
+	$nvim
+<
+
+Windows:
+>
+	rem Vim:
+	cd C:\Users\USERNAME\vimfiles\pack\ACCOUNT_NAME\start\PLUGINS_NAME\
+	vim
+	rem Neovim:
+	cd C:\Users\USERNAME\AppData\Local\nvim-data\site\pack\ACCOUNT_NAME\start\PLUGINS_NAME\
+	nvim
+<
+
+Then run |:helptags ./doc| command. After do this, you can access the new help
+page by |:help| command.
+
+
+------------------------------------------------------------------------------
+REMOVE PLUGINS					*packdl.vim-remove*
+
+This plugin does not remove plugin function, but it is possible to remove
+plugins manually by remove package installed directory.
+The install directory is described in |packdl.vim-update| section.
+After remove directory, you should remove the removed plugin in |g:gitrepos|
+to prevent reinstall the plugin.
+
+------------------------------------------------------------------------------
+CHANGELOG					*packdl.vim-changelog*
+
+1.0		2022/1/15
+		First release
+
+vim:tw=78:ts=8:ft=help:norl:

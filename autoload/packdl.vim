@@ -1,9 +1,10 @@
-"packdl.vim is a minimum Vim/Neovim plugin downloader/installer
-"Developer: Kenichi Takizawa
-"License: MIT
+" packdl.vim is a minimum Vim/Neovim plugin downloader/installer
+" Developer: Kenichi Takizawa
+" License: MIT
 
 function packdl#init()
 	command! -nargs=0 Packinstall call packdl#packinstall()
+	command! -nargs=0 PackUpdateTags call packdl#packinstall('update')
 endfunc
 
 function packdl#packdir()
@@ -24,7 +25,7 @@ endif
 return l:packdir
 endfunc
 
-function packdl#packinstall()
+function packdl#packinstall(purpose = 'install')
 
 "Check wether global number exists
 if !exists("g:gitrepos")
@@ -53,6 +54,15 @@ for gitrepo in g:gitrepos
 	endtry
 	"echo finddir('.git', l:gittarget, 0)
 	"echo l:gittarget . '/.git'
+	
+	" Update plugins if update mode
+	if a:purpose == 'update'
+	  silent exe 'helptags ' . l:gitreponame . '/doc'
+	  echo 'helptags updated: ' . gitrepo |
+	  continue
+	endif
+
+	" Install plugins if install mode
 	try
 		silent exe 'lcd ' . l:gittarget . '/.git'
 		echo gitrepo . ' is already installed.' |

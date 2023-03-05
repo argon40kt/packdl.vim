@@ -68,7 +68,8 @@ So, it is possible to go to each directories for environment and update each plu
 $cd /home/USER_NAME/.vim/pack/ACCOUNT_NAME/start/PLUGINS_NAME/
 $git pull
 ```
-After update plugins, you should update plugin documents. Change directories to above plugin installed directory and run `:helptags ./doc` command on Vim/Neovim.
+After update plugins, you should update documents helptags.
+Execute `:PackUpdateTags` on Vim/Neovim then, all installed plugins described in `g:gitrepos` will be updated.
 
 ## How to remove plugins
 

@@ -100,6 +100,10 @@ COMMANDS					*packdl.vim-commands*
 						*:Packinstall*
 :Packinstall		Install all plugins defined by |g:gitrepos|.
 
+						*:PackUpdateTags*
+:PackUpdateTags		Update all helptags of installed plugins defined by
+			|g:gitrepos|
+
 ------------------------------------------------------------------------------
 OPTIONS						*packdl.vim-options*
 
@@ -157,31 +161,8 @@ Windows:
 <
 
 After update plugins, you should update documents helptags.
-First, you should cd to plugin directory.
-
-*nix:
->
-	$#Vim:
-	$cd $HOME/.vim/pack/ACCOUNT_NAME/start/PLUGINS_NAME/
-	$vim
-	$#Neovim:
-	$cd $HOME/.local/share/nvim/site/pack/ACCOUNT_NAME/start/PLUGINS_NAME/
-	$nvim
-<
-
-Windows:
->
-	rem Vim:
-	cd C:\Users\USERNAME\vimfiles\pack\ACCOUNT_NAME\start\PLUGINS_NAME\
-	vim
-	rem Neovim:
-	cd C:\Users\USERNAME\AppData\Local\nvim-data\site\pack\ACCOUNT_NAME\start\PLUGINS_NAME\
-	nvim
-<
-
-Then run |:helptags ./doc| command. After do this, you can access the new help
-page by |:help| command.
-
+Execute |:PackUpdateTags| on Vim/Neovim then, all installed plugins described
+in |g:gitrepos| will be updated.
 
 ------------------------------------------------------------------------------
 REMOVE PLUGINS					*packdl.vim-remove*
@@ -195,7 +176,10 @@ to prevent reinstall the plugin.
 ------------------------------------------------------------------------------
 CHANGELOG					*packdl.vim-changelog*
 
-1.0		2022/1/15
+1.1		2023/3/5
+		Add |:PackUpdateTags| command
+
+1.0		2023/1/15
 		First release
 
 vim:tw=78:ts=8:ft=help:norl:
